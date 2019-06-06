@@ -23,21 +23,21 @@ upgrade your main browser to unstable? this chrome-in-docker project can help yo
 
 # Usage
 
-You may either just pull my prebuilt docker image at https://hub.docker.com/r/c0b0/chrome-stable/
+You may either just pull my prebuilt docker image at https://hub.docker.com/r/musanmaz/chrome/
 
-    $ docker pull c0b0/chrome-stable
-    $ docker run -it --rm c0b0/chrome-stable /opt/google/chrome/google-chrome --version
+    $ docker pull musanmaz/chrome
+    $ docker run -it --rm musanmaz/chrome /opt/google/chrome/google-chrome --version
     Google Chrome 52.0.2743.116
 
 Or build it locally with Dockerfile here
 
-    $ docker build -t chrome-stable:20160813 .
+    $ docker build -t chrome:2019 .
 
 Check what Chrome version is builtin, and tag a version:
 
-    $ docker run -it --rm chrome-stable:20160813 /opt/google/chrome/google-chrome --version
+    $ docker run -it --rm chrome:2019 /opt/google/chrome/google-chrome --version
     Google Chrome 52.0.2743.116
-    $ docker tag chrome-stable:20160813 chrome-stable:52.0.2743.116
+    $ docker tag chrome:2019 chrome:52.0.2743.116
 
 The extra `get-latest-chrome.sh` script here is to get latest versions of
 Chrome Stable, Beta, or Unstable version, for testing some latest features,
@@ -58,15 +58,15 @@ and latest Chrome binary packages.
 
 You may test run it one time first to check what's exact version of each Chrome channel:
 
-    $ docker run -it --rm -v $PWD/opt:/opt:ro chrome:20160813 \
+    $ docker run -it --rm -v $PWD/opt:/opt:ro chrome:2019 \
                              /opt/google/chrome-unstable/google-chrome-unstable --version
     Google Chrome 54.0.2824.0 dev
 
-    $ docker run -it --rm -v $PWD/opt:/opt:ro chrome:20160813 \
+    $ docker run -it --rm -v $PWD/opt:/opt:ro chrome:2019 \
                              /opt/google/chrome-beta/google-chrome-beta --version
     Google Chrome 53.0.2785.57 beta
 
-    $ docker run -it --rm -v $PWD/opt:/opt:ro chrome:20160813 \
+    $ docker run -it --rm -v $PWD/opt:/opt:ro chrome:2019 \
                              /opt/google/chrome/google-chrome --version
     Google Chrome 52.0.2743.116
 
@@ -96,9 +96,9 @@ $ docker run -dt \
 
 $ docker ps -a
 CONTAINER ID  IMAGE            COMMAND      CREATED  STATUS  PORTS  NAMES
-35974a5247cf  chrome:20160813  "/entry.sh"  ...                     Chrome-stable-52.0.2743.116
-d5b784cbe9ac  chrome:20160813  "/entry.sh"  ...                     Chrome-beta-53.0.2785.57
-56417156ffea  chrome:20160813  "/entry.sh"  ...                     Chrome-dev-54.0.2824.0
+35974a5247cf  chrome:2019  "/entry.sh"  ...                     Chrome-stable-52.0.2743.116
+d5b784cbe9ac  chrome:2019  "/entry.sh"  ...                     Chrome-beta-53.0.2785.57
+56417156ffea  chrome:2019  "/entry.sh"  ...                     Chrome-dev-54.0.2824.0
 ```
 
 To connect the chrome in docker, you may either use port mappings, let it call proper
@@ -126,11 +126,11 @@ $ docker run -dt \
              --name Chrome-stable-builtin-52.0.2743.116 \
              -h chrome-stable-52.local \
              -p 9222:9222 \
-         chrome:20160813
+         chrome:2019
 e9a3738f2d642e5d1a4dd895750d1a09ddece3dd187c82309ade99e1b4123027
 $ docker ps -a
 CONTAINER ID  IMAGE            COMMAND      CREATED        STATUS         PORTS                     NAMES
-e9a3738f2d64  chrome:20160813  "/entry.sh"  3 seconds ago  Up 3 seconds   0.0.0.0:9222->9222/tcp   Chrome-stable-builtin-52.0.2743.116
+e9a3738f2d64  chrome:2019  "/entry.sh"  3 seconds ago  Up 3 seconds   0.0.0.0:9222->9222/tcp   Chrome-stable-builtin-52.0.2743.116
 
         # by inspect we know we can access this container by 172.18.0.2:9222
 $ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' Chrome-stable-builtin-52.0.2743.116
